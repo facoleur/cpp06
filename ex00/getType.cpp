@@ -47,17 +47,17 @@ bool isInt(const std::string literal) {
   if (s.empty())
     return false;
 
-  size_t i = 0;
-  if (s[0] == '-' || s[0] == '+')
-    i = 1;
+  const char *p = literal.c_str();
+  char *endp = 0;
 
-  if (i == s.length())
+  const long value = strtol(p, &endp, 10);
+
+  if (*endp != '\0')
     return false;
 
-  for (; i < s.length(); ++i) {
-    if (!isdigit(static_cast<unsigned char>(s[i])))
-      return false;
-  }
+  if (value < INT_MIN || value > INT_MAX)
+    return false;
+
   return true;
 }
 

@@ -13,27 +13,26 @@ void printFloat(float f) {
 }
 
 void handlePrintChar(const double value) {
-  std::string charValue;
+
   if (value > 127 || value < 0 || isSpecial(value)) {
-    charValue = "Impossible";
-  } else if (!isprint(static_cast<unsigned char>(value))) {
-    charValue = "Non displayable";
-  } else {
-    charValue = std::string(1, static_cast<char>(value));
+    std::cout << "char: impossible" << std::endl;
+    return;
   }
 
-  std::cout << "char: "
-            << "'" << charValue << "'" << std::endl;
+  if (!isprint(static_cast<unsigned char>(value))) {
+    std::cout << "char: non displayable" << std::endl;
+    return;
+  }
+
+  std::string display = "'" + std::string(1, static_cast<char>(value)) + "'";
+  std::cout << "char: " << display << std::endl;
 }
 
 void handlePrintInt(const double value) {
-  if (isSpecial(value)) {
-    std::cout << "int: Impossible" << std::endl;
-  } else if (value < INT_MAX && value > INT_MIN) {
+  if (isSpecial(value) || (value > INT_MAX || value < INT_MIN))
+    std::cout << "int: impossible" << std::endl;
+  else
     std::cout << "int: " << static_cast<int>(value) << std::endl;
-  } else {
-    std::cout << "int: out of range" << std::endl;
-  }
 }
 
 void convertInt(const std::string &literal) {
@@ -44,7 +43,7 @@ void convertInt(const std::string &literal) {
   long int value = std::strtol(p, &endp, 10);
 
   if (value > INT_MAX || value < INT_MIN) {
-    std::cout << "Int out of range" << std::endl;
+    std::cout << "Int Out of range" << std::endl;
     return;
   }
 

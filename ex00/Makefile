@@ -3,7 +3,7 @@ CFLAGS= -g -Wall -Wextra -Werror -std=c++98
 SRCS= main.cpp ScalarConverter.cpp getType.cpp converters.cpp
 
 OBJS= $(SRCS:.cpp=.o)
-NAME= ex00
+NAME= convert
 all: $(NAME)
 
 $(NAME): $(OBJS)
