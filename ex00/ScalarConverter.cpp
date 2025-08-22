@@ -13,7 +13,6 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &) {
 ScalarConverter::~ScalarConverter() {}
 
 void ScalarConverter::convert(const std::string literal) {
-
   type type = getType(literal);
 
   switch (type) {

@@ -44,10 +44,12 @@ bool isSpecialDouble(const std::string &literal) {
 bool isInt(const std::string literal) {
   std::string s = trim(literal);
 
+  std::cout << "'" << s << "'" << std::endl;
+
   if (s.empty())
     return false;
 
-  const char *p = literal.c_str();
+  const char *p = s.c_str();
   char *endp = 0;
 
   const long value = strtol(p, &endp, 10);

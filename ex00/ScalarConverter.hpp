@@ -6,11 +6,8 @@
 #include <climits>
 #include <cstdlib>
 #include <errno.h>
-#include <iomanip>
 #include <iostream>
-#include <limits>
 #include <math.h>
-#include <sstream>
 
 enum type {
   CHAR = 1,

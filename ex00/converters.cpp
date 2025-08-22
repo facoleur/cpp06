@@ -24,8 +24,8 @@ void handlePrintChar(const double value) {
     return;
   }
 
-  std::string display = "'" + std::string(1, static_cast<char>(value)) + "'";
-  std::cout << "char: " << display << std::endl;
+  std::cout << "char: "
+            << "'" << static_cast<char>(value) << "'" << std::endl;
 }
 
 void handlePrintInt(const double value) {

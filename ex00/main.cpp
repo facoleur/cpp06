@@ -1,8 +1,6 @@
 // main.cpp
 
 #include "ScalarConverter.hpp"
-#include <cassert>
-
 
 int main(const int ac, const char *av[]) {
   // std::cout << std::setprecision(20);
