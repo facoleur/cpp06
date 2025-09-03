@@ -35,4 +35,4 @@ void convertInt(const std::string &literal);
 void convertFloat(const std::string &literal);
 void convertDouble(const std::string &literal);
 void convertChar(const std::string &literal);
-void printFloat(float f);
+void handlePrintFloat(float f);

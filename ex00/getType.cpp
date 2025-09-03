@@ -44,8 +44,6 @@ bool isSpecialDouble(const std::string &literal) {
 bool isInt(const std::string literal) {
   std::string s = trim(literal);
 
-  std::cout << "'" << s << "'" << std::endl;
-
   if (s.empty())
     return false;
 

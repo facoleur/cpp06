@@ -1,15 +1,43 @@
 // converters.cpp
 
 #include "ScalarConverter.hpp"
+#include <cmath>
+#include <iomanip>
+#include <iostream>
 
 bool isSpecial(double value) { return std::isnan(value) || std::isinf(value); }
 
-void printFloat(float f) {
+int countDecimals(const std::string &s) {
+  std::string::size_type pos = s.find('.');
+  if (pos == std::string::npos)
+    return 0;
+
+  if (s.find('f') == std::string::npos && s.find('F') == std::string::npos) {
+    return s.size() - pos;
+  }
+
+  return s.size() - pos - 1;
+}
+
+void handlePrintFloat(float f, int decimals) {
   std::cout << "float: ";
-  if (f == static_cast<long long>(f))
-    std::cout << f << ".0f" << std::endl;
+  if (decimals == 0) {
+    std::cout << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+  } else {
+    std::cout << std::fixed
+              << std::setprecision(decimals > 1 ? decimals - 1 : decimals) << f
+              << "f" << std::endl;
+  }
+}
+
+void handlePrintDouble(double d, int decimals) {
+  std::cout << "double: ";
+  if (decimals == 0)
+    std::cout << std::fixed << std::setprecision(1) << d << std::endl;
   else
-    std::cout << f << "f" << std::endl;
+    std::cout << std::fixed
+              << std::setprecision(decimals > 1 ? decimals - 1 : decimals) << d
+              << std::endl;
 }
 
 void handlePrintChar(const double value) {
@@ -49,8 +77,8 @@ void convertInt(const std::string &literal) {
 
   handlePrintChar(static_cast<double>(value));
   std::cout << "int: " << static_cast<int>(value) << std::endl;
-  printFloat(static_cast<float>(value));
-  std::cout << "double: " << static_cast<double>(value) << ".0" << std::endl;
+  handlePrintFloat(static_cast<float>(value), 0);
+  handlePrintDouble(static_cast<double>(value), 0);
 }
 
 void convertFloat(const std::string &literal) {
@@ -59,13 +87,14 @@ void convertFloat(const std::string &literal) {
 
   char *endp = 0;
   const double value = strtod(p, &endp);
+  int decimals = countDecimals(literal);
 
   std::string impossible = "impossible";
 
   handlePrintChar(value);
   handlePrintInt(value);
-  printFloat(static_cast<float>(value));
-  std::cout << "double: " << static_cast<double>(value) << std::endl;
+  handlePrintFloat(static_cast<float>(value), decimals);
+  handlePrintDouble(value, decimals);
 }
 
 void convertDouble(const std::string &literal) {
@@ -73,11 +102,12 @@ void convertDouble(const std::string &literal) {
   char *endp = 0;
 
   double value = std::strtod(p, &endp);
+  int decimals = countDecimals(literal);
 
   handlePrintChar(value);
   handlePrintInt(value);
-  printFloat(static_cast<float>(value));
-  std::cout << "double: " << value << std::endl;
+  handlePrintFloat(static_cast<float>(value), decimals);
+  handlePrintDouble(value, decimals);
 }
 
 void convertChar(const std::string &literal) {
@@ -86,6 +116,6 @@ void convertChar(const std::string &literal) {
   std::cout << "char: "
             << "'" << c << "'" << std::endl;
   std::cout << "int: " << static_cast<int>(c) << std::endl;
-  printFloat(static_cast<float>(c));
-  std::cout << "double: " << static_cast<double>(c) << std::endl;
+  handlePrintFloat(static_cast<float>(c), 0);
+  handlePrintDouble(static_cast<double>(c), 0);
 }

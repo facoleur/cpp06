@@ -3,7 +3,7 @@
 #include "ScalarConverter.hpp"
 
 int main(const int ac, const char *av[]) {
-  // std::cout << std::setprecision(20);
+  // std::cout << std::setprecision(6);
 
   if (ac != 2) {
     std::cout << "usage: " << av[0] << " <literal>" << std::endl;
